@@ -1,0 +1,32 @@
+9 arithmetic/logical instructions between register & literal number + 2 increment/decrement instruction with register
+
+9 arithmetic/logical instructions between register & register + 6 shift/exchange/movement/comparation instructions between register & register
+
+8 offset-only INDIRECT address jump instructions (256 bytes of memory - fixed segment)
+
+8 ofsset-only DIRECT absolute address jump/call instructions
+
+14 segment & offset indirect address jump/call instructions (64K of memory - dynamic segment)
+
+8 arithmetic/logical instructions between register & 
+absolute direct address (256 bytes of memory - fixed segment)
+
+4 movement/shift/comparation instructions between register & literal number
+
+1 move instruction "from register to memory" via direct absolute address.
+
+2 CPU instructions for Halt & Reset
+
+6 stack instructions (return from subroutines and stack)
+
+4 input & output port instructions (2 instructions for bits & 2 for bytes)
+
+approximately 3000 unused binary combinations for possible future instructions.
+
+73 CPU instrutions.
+
+
+
+
+
+
