@@ -1,0 +1,63 @@
+Novos Registradores Internos (Sem acesso explícito):
+	SP - Topo da pilha (Inicialmente 0xFFF)
+	BP - Base da pilha (Inicialmente 0xFFF)
+	ISR - Interrupt Special Register
+	Stack RAM - Memória de Pilha Embutida
+
+Registradores Auxiliares (Sem acesso algum):
+	PCL_A: Program Counter LOW Auxiliar
+	PCH_A: Program Counter HIGH Auxiliar
+	P2I: P2 Interrupt - Endereço atual da ISR mapeada 
+
+Instruções de LIMPEZA ou HABILITAÇÃO (Extensão Sequencial):
+
+0x08 à 0x0F:
+EI - Habilita/Seta bit de Interrupção
+DI - Desabilita/Limpa bit de interrupção
+ED - Habilita/Seta bit de Depuração
+DD - Desabilita/Limpa bit de Depuração
+EC - Habilita/Seta bit de Carry
+DC - Desabilita/Limpa bit de Carry
+CDR - Limpa acumulador
+CLR - Limpa todos os registradores
+
+Instruções de PILHA (Extensão Sequencial):
+
+0x18 à 0x1F:
+PUSHB - Salva BP na pilha
+POPB - Restaura BP da pilha
+PUSHS - Salva SP na pilha
+POPS - Restaura SP da pilha
+
+SBP - Configura base da pilha para variáveis locais:
+	* Ler 8 bits de DR e coloca na parte baixa de BP
+	* Ler 4 bits de DR e coloca na parte alta de BP
+RBP - Ler byte da pilha para variáveis locais (Sem Alterar SP ou BP):
+	* Pega valor de BP e subtrai menos DR
+	* Ler/Envia o conteúdo apontado por (BP - DR) para DR
+
+RET - Retorna de chamada da rotina
+	* Ler valor Y da pilha, coloca em PC e Soma SP
+	* Realiza Jump para novo endereço Y de PC
+IRET - Retorna da rotina de interrupção
+	* Ler Flags e PC da pilha (2 bytes)
+	* Realiza Jump para novo endereço de PC
+
+0x28 à 0x2F:
+PUSH Rx - Subtrai SP e Coloca valor de Rx no topo da pilha 
+POP Rx - Ler valor do topo da pilha para Rx e soma SP
+
+0x48 à 0x5F:
+CALL X - Chama a rotina X (Extensão Dupla)
+	* Subtrai SP e Coloca valor Y de PC na pilha
+	* Realiza Jump para novo endereço X de PC
+
+3 Tipos de Extensão de Opcodes:
+	- Extensão de Opcode Sequencial
+		* Para instruções sem operandos
+	- Extensão de Opcode Singular
+		* Para instruções com endereçamento indireto (Regs)
+	- Extensão de Opcode Dupla
+		* Para instruções com endereçamento relativo (RAM)
+
++19 instruções --> Total = 35 instruções
